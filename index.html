@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizing Data in the Terminal: A Guide to YouPlot from Red Data Tools</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+        h1 {
+            font-family: 'Georgia', serif;
+            text-align: center;
+        }
+        .logo {
+            width: 500px;
+            display: block;
+            margin: 20px auto;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+        }
+        .install-img {
+            width: 400px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid black;
+        }
+        th, td {
+            border: 2px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 6px;
+            }
+        }    
+    </style>
+</head>
+<body>
+    <h1>Visualizing Data in the Terminal: A Guide to YouPlot from Red Data Tools</h1>
+    <img src="logo.png" class="logo">
+    
+    <h2>Introduction</h2>
+    <p>YouPlot is a command-line data visualization tool designed for users who prefer working in a terminal environment. It offers a lightweight and efficient way to generate quick visual insights without the need for GUI-based software. Whether you're working with CSV, JSON, or direct input, YouPlot enables the creation of bar charts, line plots, scatter plots, histograms, and more. This makes it an excellent tool for data analysts, developers, and researchers who require an instant graphical representation of data within scripts or interactive sessions.</p>
+    
+    <h2>Installation & Setup</h2>
+    <h3>For Windows</h3>
+    <p>To install ruby visit rubyinstaller.org, click on download and follow the following steps:</p>
+    <img src="1.png" class="install-img">
+    <img src="2.png" class="install-img">
+    <img src="3.png" class="install-img">
+    <img src="4.png" class="install-img">
+    <img src="5.png" class="install-img">
+    <img src="6.png" class="install-img">
+    <img src="7.png" class="install-img">
+    <h3>For MacOs(Terminal)</h3>
+    <pre><code>brew install youplot</code></pre>
+    <h3>For linux(NixOS)(Terminal)</h3>
+    <pre><code>nix shell nixpkgs </code></pre>
+    <h3>For linux(GNU Guix)</h3>
+    <pre><code>guix install youplot  </code></pre>
+    <h3>For linux(conda)</h3>
+    <pre><code>conda install -c conda-forge ruby
+conda install -c conda-forge compilers 
+     </code></pre>
+
+    <p>Once ruby installed verify by running:</p>
+    <pre><code>ruby --v
+gem --v</code></pre>
+    <img src="10.png" class="install-img">
+    <p>To install the tool, use the following command:</p>
+    <pre><code>gem install youplot</code></pre>
+    <img src="11.png" class="install-img">
+    <p>Once installed, to see the version:</p>
+    <pre><code>uplot --version</code></pre>
+    
+    <h2>Key Features</h2>
+    <h3>Basic Commands</h3>
+    <ul>
+        <table>
+            <tr>
+                <th>Command</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>cat data.tsv | uplot &lt;command&gt; [options]</code></td>
+                <td>Take input from stdin</td>
+            </tr>
+            <tr>
+                <td><code>uplot &lt;command&gt; [options] data.tsv ...</code></td>
+                <td>Take input from files</td>
+            </tr>
+            <tr>
+                <td><code>pipeline1 | uplot &lt;command&gt; -O | pipeline2</code></td>
+                <td>Outputs data from stdin to stdout</td>
+            </tr>
+        </table>
+    </ul>
+    <h3>Subcommands</h3>
+    <ul>
+    <table>
+        <tr>
+            <th>Command</th>
+            <th>Short</th>
+            <th>How it works</th>
+        </tr>
+        <tr><td>barplot</td><td>bar</td><td>Draw a horizontal barplot</td></tr>
+        <tr><td>histogram</td><td>hist</td><td>Draw a horizontal histogram</td></tr>
+        <tr><td>lineplot</td><td>line</td><td>Draw a line chart</td></tr>
+        <tr><td>lineplots</td><td>lines</td><td>Draw a line chart with multiple series</td></tr>
+        <tr><td>scatter</td><td>s</td><td>Draw a scatter plot</td></tr>
+        <tr><td>density</td><td>d</td><td>Draw a density plot</td></tr>
+        <tr><td>boxplot</td><td>box</td><td>Draw a horizontal boxplot</td></tr>
+        <tr><td>count</td><td>c</td><td>Draw a barplot based on the number of occurrences (slow)</td></tr>
+        <tr><td>colors</td><td>color</td><td>Show the list of available colors</td></tr>
+    </table>
+    </ul>
+
+    <h3>Support Commands</h3>
+    <ul>
+        <table>
+            <tr>
+                <th>Command</th>
+                <th>Code</th>
+            </tr>
+            <tr><td>Help</td><td><pre><code>uplot --help</code></pre></td></tr>
+            <tr><td>Hist help</td><td><pre><code>uplot -- hist help</code></pre></td></tr>
+            <tr><td>Config</td><td><pre><code>uplot --config</code></pre></td></tr>
+            
+        </table>
+        </ul>
+
+    
+    <h2>Code Examples</h2>
+
+<h3>General Syntax</h3>
+<p>The basic syntax for using YouPlot is:</p>
+<pre><code>C:\Users\desktop1> uplot &lt;command&gt; [options] &lt;data.tsv&gt;</code></pre>
+<p><strong>&lt;command&gt;</strong>: Type of plot you want (e.g., bar, line, scatter).<br>
+    <strong>[options]</strong>: Customization options for the plot (like color, title, etc.).<br>
+    <strong>&lt;data.tsv&gt;</strong>: The input file or data stream.</p>
+
+<h3>Bar Plot Example</h3>
+<p>This command creates a bar plot from inline data using a comma as a delimiter.</p>
+<pre><code>C:\Users\desktop1> echo "Category A,10
+Category B,25
+Category C,18
+Category D,30
+Category E,22
+Category F,15
+Category G,28
+Category H,35
+Category I,40
+Category J,50" | uplot bar -d ',' -t "Bar Plot Example"</code></pre>
+<img src="bar plot 2.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    The <code>-d ','</code> specifies that the delimiter is a comma.  
+    The <code>-t</code> option adds a title to the plot.</p>
+
+<h3>Histogram Example 1</h3>
+<p>This command creates a histogram from a set of numerical values with 10 bins.</p>
+<pre><code>C:\Users\desktop1> "echo "1`n5`n2`n3`n6`n8`n7`n5`n3`n2`n1`n7`n8`
+    n9`n5`n6`n4`n3`n2`n6`n7`n8`n9`n2`n3`
+    n4`n5`n6`n7`n8`n9`n10`n12`n15`n18`
+    n20`n22`n25`n28`n30`n35`n40`n45`n50`n55`
+    n60`n65`n70`n75`n80`n85`n90`n95`n100"
+    uplot hist --n 10 -t "Histogram"</code></pre>
+    <img src="histogram 1.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p><strong>Explanation:</strong>  
+        <code>--nbins 10</code> divides the data into 10 bins.  
+        <code>-t</code> adds a title.</p>
+
+<h3>Line Plot Example</h3>
+<p>This command creates a simple line plot with space-separated values.</p>
+<pre><code>C:\Users\desktop1> "-10,100
+    -9,81
+    -8,64
+    -7,49
+    -6,36
+    -5,25
+    -4,16
+    -3,9
+    -2,4
+    -1,1
+    0,0
+    1,1
+    2,4
+    3,9
+    4,16
+    5,25
+    6,36
+    7,49
+    8,64
+    9,81
+    10,100" | uplot line -d ' ' -t "Line plot of quadratic formula" </code></pre>
+<img src="parabola 2.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong> 
+    <p> <code>uplot line</code> creates a line plot</p> 
+    The <code>-d ' '</code> option specifies space as the delimiter.</p>  
+    
+
+<h3>Scatter Plot Example</h3>
+<p>This scatter plot visualizes two sets of numerical values separated by spaces.</p>
+<pre><code>C:\Users\desktop1> echo "1 3
+2 6
+3 9
+4 12
+5 15
+4 7
+9 5
+3 10
+7 2
+4 8
+1 1
+5 6
+3 7
+2 5" | uplot scatter -d ' ' -t "Scatter Plot in Red" -c red</code></pre>
+<img src="scatter plot.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    Each line contains an (x, y) pair.  
+    <code>-c red</code> colors the scatter points red.</p>
+
+
+<h3>Density Plot Example</h3>
+<p>This command generates a density plot using randomly generated values.</p>
+<pre><code>C:\Users\desktop1> python -c "import random; print('\n'.join(f'{random.uniform(0,10)} {random.uniform(0,10)}' for _ in range(150)))" |
+uplot density -d ' ' -t "Density Plot"</code></pre>
+<img src="density plot.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    Random (x, y) pairs are generated.  
+    The density plot visualizes the distribution of points.</p>
+
+<h3>Box Plot Example</h3>
+<p>This command creates a box plot for two different groups.</p>
+<pre><code>C:\Users\desktop1> echo "GroupA 10
+GroupA 12
+GroupA 14
+GroupA 9
+GroupB 11
+GroupB 20
+GroupB 22
+GroupB 19
+GroupB 23
+GroupB 21" | uplot box -d ' ' -t "Box Plot of Two Groups"</code></pre>
+<img src="Box plot.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    Shows median, quartiles, and outliers for two groups.</p>
+
+<h3>Changing Plot Colors</h3>
+<p>YouPlot allows color customization using the <code>-c</code> option.</p>
+<pre><code>C:\Users\desktop1> echo "GroupA 10
+GroupA 12
+GroupA 14
+GroupA 9
+GroupB 11
+GroupB 20
+GroupB 22
+GroupB 19
+GroupB 23
+GroupB 21" | uplot box -d ' ' -t "Boxplot in Yellow" -c yellow</code></pre>
+<img src="color.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    <code>-c yellow</code> changes the box plot color.</p>
+
+<h3>Density Plot with Custom Color</h3>
+<p>This density plot uses red as the color.</p>
+<pre><code>C:\Users\desktop1> python -c "import random; print('\n'.join(f'{random.uniform(0,10)} {random.uniform(0,10)}' for _ in range(50)))" |
+uplot density -d ' ' -t "Density Plot in Red" -c red</code></pre>
+<img src="scatter plot red.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+
+<h3>Line Plot with Custom Color</h3>
+<p>This command creates a simple line plot with space-separated values.</p>
+<pre><code>C:\Users\desktop1> echo "1 5
+2 15
+3 25
+4 35
+5 45" | uplot line -d ' ' -t "Line Plot in Blue" -c blue</code></pre>
+<img src="lineplot in blue.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+<p><strong>Explanation:</strong>  
+    The <code>-d ' '</code> option specifies space as the delimiter.  
+    <code>-c blue</code> sets the line color to blue.</p>
+    
+    
+    <h2>Use Cases</h2>
+    
+    <p>YouPlot is a powerful command-line tool that can be combined with other utilities like awk, git bash, curl, python, and cut to visualize data efficiently. Here are some practical applications:</p>
+    <h3>1. Visualizing Data from a Remote Dataset Using curl and cut</h3>
+    <pre><code>$ cat better_iris_data.tsv | head </code></pre>
+    <img src="new.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p>(Existing dataset)</p>
+    <pre><code>$ cut -f1-4 better_iris_data.tsv | uplot boxplot -H -t "Iris Data Distribution"</code></pre>
+    <img src="usage 1.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p><strong>Explanation:</strong></p>
+    <p><code>cut -f1-4</code> Extracts the first four columns from the dataset</p>
+    <p><code>uplot boxplot -H -t</code> Generates a boxplot titled "IRIS DATA Distribution" using the extracted data.</p>
+
+    <h3>2. Simple Line Plot Using cat</h3>
+    <pre><code>$ echo -e "Value1\tValue2\n1\t5\n2\t10\n3\t15\n4\t20\n5\t25" > data.tsv</code></pre>
+    <p>Creating a dataset and uploading to a file</p>
+    <img src="usage 2.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p><strong>Explanation:</strong></p>
+    <p><code>cat data.csv</code> reads the contents of the data.tsv file</p>
+    <p><code>uplot line -H</code> plots the data as a line graph with headers automatically detected</p>
+    <p>This is useful for quickly checking trends in your data.</p>
+
+    <h3>3. Combining Python with YouPlot for Random Data Visualization</h3>
+    <pre><code>$ python -c "import random; print('\n'.join(f'{random.uniform(0,10)} {random.uniform(0,10)}' for _ in range(50)))" |
+        uplot density -d ' ' -t "Density Plot in Red" -c red</code></pre>
+    <img src="scatter plot red.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p><strong>Explanation:</strong></p>
+    <p>python generates 50 pairs of random values</p>
+    <p><code>uplot density -d ' ' -t </code>Visualizes the random points on a density plot. </p>
+    <p>This is ideal for testing visualization layouts with randomly generated data.</p>
+
+    <h3>4. Quick Data Visualization Using echo</h3>
+    <pre><code>$ echo -e "1 10\n2 20\n3 30\n4 40\n5 50" > spaced_data.txt
+        uplot bar -d ' ' -t "Bar plot with Space Delimiter" spaced_data.txt
+    </code></pre>
+    <img src="usage echo.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+    <p><strong>Explanation:</strong></p>
+    <p><code> echo -e </code>Prints the provided text to the terminal. The -e option allows interpretation of special characters like \n for new lines </p>
+    <p><code> 1 10\n2 20\n3 30\n4 40\n5 50 </code>This is the data being passed, where each line represents a pair of X and Y values. </p>
+    <p><code> uplot bar </code> creates a bar plot</p>
+    <p><code>  -d ' ' </code>Specifies a space as the delimiter between the two numbers </p>
+    <p><code>-t </code>Sets the title of the chart. </p>
+    <p>This method is useful for visualizing small sets of data quickly without creating a separate file. For example, you can visualize sales data for a week or test simple data inputs.</p>
+    
+    <h3>5. Using AWK with YouPlot</h3>
+
+<p>AWK is a powerful command-line tool for pattern scanning and processing. It is commonly used for data extraction and reporting. When combined with YouPlot, it becomes a handy way to preprocess data before visualizing it directly in the terminal.</p>
+
+
+<h4>Horizontal Bar Chart Using AWK</h4>
+<pre><code>$ awk 'NR&gt;1 {print $1, $2}' data.tsv | uplot bar -d ' '</code></pre>
+
+<img src="awk bar.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+
+<p><strong>Explanation:</strong></p>
+<ul>
+  <li><code>awk</code>: Invokes the AWK command-line tool.</li>
+  <li><code>'NR&gt;1 {print $1, $2}'</code>: Skips the first line (usually headers) and prints the first and second columns from the file.</li>
+  <li><code>data.tsv</code>: The input file containing tab-separated data.</li>
+  <li><code>|</code>: Pipes the output from AWK into YouPlot.</li>
+  <li><code>uplot bar -d ' '</code>: Generates a horizontal bar chart, using a space as a delimiter.</li>
+</ul>
+
+<div style="clear: both;"></div>
+
+
+<h4>Line Chart Using AWK</h4>
+<pre><code>$ awk 'NR&gt;1 {print NR-1, $2, $3}' line_data.tsv | uplot line -d ' '</code></pre>
+
+<img src="awk line.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+
+<p><strong>Explanation:</strong></p>
+<ul>
+  <li><code>NR&gt;1</code>: Skips the header row.</li>
+  <li><code>print NR-1, $2, $3</code>: Outputs a new index (starting from 1) followed by the second and third columns.</li>
+  <li><code>line_data.tsv</code>: Data source with numerical values.</li>
+  <li><code>uplot line -d ' '</code>: Generates a line chart from the processed data.</li>
+</ul>
+
+<div style="clear: both;"></div>
+
+<h4>Scatter Plot Using AWK</h4>
+<pre><code>$ echo "Scatter Plot (Height vs. Weight):"
+$ awk 'NR&gt;1 {print $1, $2}' random_data.tsv | uplot scatter -d ' '</code></pre>
+<img src="awk scatter.jpg" alt="Density Plot in Red" style="width: 80%; height: auto; display: block; margin: 10px 0;">
+
+
+<p><strong>Explanation:</strong></p>
+<ul>
+  <li><code>echo</code>: Prints a message to the terminal for context.</li>
+  <li><code>awk 'NR&gt;1 {print $1, $2}'</code>: Skips the header and prints the first two columns, representing height and weight.</li>
+  <li><code>random_data.tsv</code>: A dataset with random height and weight values.</li>
+  <li><code>uplot scatter -d ' '</code>: Generates a scatter plot from the extracted data.</li>
+</ul>
+
+<div style="clear: both;"></div>
+<p>Generates various plots from the extracted data.</p>
+    
+    
+    
+
+
+
+
+    <h2>Conclusion</h2>
+    <p>YouPlot is a powerful yet simple solution for data visualization in the command line. By eliminating the need for heavyweight applications, it allows users to quickly analyze datasets and extract meaningful insights. Whether for automating data exploration or visualizing real-time data, this tool proves to be a valuable addition to any developer’s workflow. Its compatibility with various data formats and ease of installation make it an excellent choice for anyone seeking an efficient, scriptable, and fast visualization method in the terminal.</p>
+    
+    <h2>References & Further Reading</h2>
+    <ul>
+        <li><a href="https://github.com/red-data-tools/YouPlot">YouPlot Documentation GitHub Repo</a></li>
+        <li><a href="https://red-data-tools.github.io/">Red Data Tool GitHub Repo</a></li>
+        <li><a href="https://srclog.com/YouPlot">Installation tutorial</a></li>
+        <li><a href="https://opensource.org/license/MIT">MIT license</a></li>
+        <li><a href="https://www.youtube.com/watch?v=lT6JwbeuzCA">Basic uplot tutorial</a></li>
+    </ul>
+</body>
+</html>
